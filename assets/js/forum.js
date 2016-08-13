@@ -45,7 +45,7 @@
 
                 $('#topicContent')
                     .val($('#topicContent').val() + quoteText + '\n\n')
-                    .focus()
+                    .focus();
             }
         })
 

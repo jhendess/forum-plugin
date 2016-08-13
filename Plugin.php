@@ -12,7 +12,7 @@ use RainLab\User\Controllers\Users as UsersController;
  */
 class Plugin extends PluginBase
 {
-    public $require = ['RainLab.User'];
+    public $require = ['RainLab.User','ShahiemSeymor.Bbcode'];
 
     /**
      * Returns information about this plugin.
