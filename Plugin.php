@@ -91,6 +91,15 @@ class Plugin extends PluginBase
         });
     }
 
+    public function registerMarkupTags()
+    {
+        return [
+            'filters' => [
+                'stripBBCode' => [$this, 'stripBBCode']
+            ]
+        ];
+    }
+
     public function registerComponents()
     {
         return [
@@ -124,5 +133,11 @@ class Plugin extends PluginBase
             'rainlab.forum::mail.topic_reply'   => 'Notification to followers when a post is made to a topic.',
             'rainlab.forum::mail.member_report' => 'Notification to moderators when a member is reported to be a spammer.'
         ];
+    }
+    
+    public function stripBBCode($text) {
+        $pattern = '|[[\/\!]*?[^\[\]]*?]|si';
+        $replace = '';
+        return preg_replace($pattern, $replace, $text);
     }
 }
