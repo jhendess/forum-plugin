@@ -34,3 +34,14 @@ fields:
         comment: rainlab.forum::lang.data.is_hidden
         type: checkbox
         span: auto
+
+    is_login_required:
+        label: rainlab.forum::lang.data.login_required
+        comment: rainlab.forum::lang.data.is_login_required
+        type: checkbox
+        span: auto
+
+    required_permission:
+        label: rainlab.forum::lang.data.required_permission
+        type: dropdown
+        span: auto

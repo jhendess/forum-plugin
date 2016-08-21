@@ -12,7 +12,7 @@ use RainLab\User\Controllers\Users as UsersController;
  */
 class Plugin extends PluginBase
 {
-    public $require = ['RainLab.User','ShahiemSeymor.Bbcode'];
+    public $require = ['RainLab.User','ShahiemSeymor.Bbcode', 'KurtJensen.Passage'];
 
     /**
      * Returns information about this plugin.
@@ -26,7 +26,7 @@ class Plugin extends PluginBase
             'description' => 'rainlab.forum::lang.plugin.description',
             'author'      => 'Alexey Bobkov, Samuel Georges',
             'icon'        => 'icon-comments',
-            'homepage'    => 'https://github.com/rainlab/forum-plugin'
+            'homepage'    => 'https://github.com/jhendess/october-forum-plugin'
         ];
     }
 

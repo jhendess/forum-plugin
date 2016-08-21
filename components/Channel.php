@@ -118,7 +118,7 @@ class Channel extends ComponentBase
             return null;
         }
 
-        return $this->channel = ChannelModel::whereSlug($slug)->first();
+        return $this->channel = ChannelModel::whereSlug($slug)->isAccessible()->first();
     }
 
     protected function prepareTopicList()

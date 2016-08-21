@@ -136,9 +136,11 @@ class Topic extends ComponentBase
         }
 
         $topic = TopicModel::whereSlug($slug)->first();
-
-        if ($topic) {
+        
+    if ($topic && $topic->isAccessible()) {
             $topic->increaseViewCount();
+        } else {
+            return null;
         }
 
         return $this->topic = $topic;
@@ -163,7 +165,7 @@ class Topic extends ComponentBase
             $channel = $topic->channel;
         }
         elseif ($channelId = input('channel')) {
-            $channel = ChannelModel::find($channelId);
+            $channel = ChannelModel::find($channelId)->isAccessible();
         }
         else {
             $channel = null;
@@ -179,7 +181,7 @@ class Topic extends ComponentBase
 
     public function getChannelList()
     {
-        return ChannelModel::make()->getRootList('title', 'id');
+        return ChannelModel::make()->getRootList('title', 'id')->isAccesible();
     }
 
     protected function preparePostList()

@@ -67,7 +67,10 @@ return [
         'moderated' => 'Moderated',
         'is_mod' => 'Only moderators can post to this channel.',
         'hidden' => 'Hidden',
-        'is_hidden' => 'Hide this category from the main category list.'
+        'is_hidden' => 'Hide this category from the main category list.',
+        'login_required' => 'Login required',
+        'is_login_required' => 'User must be logged in to see this channel',
+        'required_permission' => 'Required permission to view channel'
     ],
     'settings' => [
         'username' => 'Username',

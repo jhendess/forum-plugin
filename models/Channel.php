@@ -1,5 +1,7 @@
 <?php namespace RainLab\Forum\Models;
 
+use Auth;
+use KurtJensen\Passage\Models\Key;
 use Model;
 use ApplicationException;
 
@@ -129,6 +131,37 @@ class Channel extends Model
         return $query->where('is_hidden', '<>', true);
     }
 
+    /**
+     * Filters if the channel is only visible for logged in users.
+     * @param $loginRequired boolean If true, then shows channels where a logged in user is required.
+     */
+    public function scopeIsLoginRequired($query, $isUserLoggedIn)
+    {
+        if (!$isUserLoggedIn) {
+            $query = $query->where('is_login_required', '=', false);
+        }
+        return $query;
+    }
+
+    public function scopeFilterPermissions($query, $permissions)
+    {
+        $permissions[] = '';
+        $query = $query->whereIn("required_permission", $permissions);
+        return $query;
+    }
+
+    /**
+     * Include all necessary filters to make sure that the currently logged in user can open the channel.
+     */
+    public function scopeIsAccessible($query) {
+        $user = Auth::getUser();
+        $permission_keys = \KurtJensen\Passage\Plugin::globalPassageKeys();
+
+        return $query->isVisible()
+            ->isLoginRequired($user !== null)
+            ->filterPermissions($permission_keys);
+    }
+
     public function afterDelete()
     {
         foreach ($this->topics as $topic) {
@@ -149,5 +182,15 @@ class Channel extends Model
         ];
 
         return $this->url = $controller->pageUrl($pageName, $params);
+    }
+
+    public function getRequiredPermissionOptions($keyValue = null) {
+        $permission_keys = Key::all();
+        $options = [null => 'None'];
+        foreach ($permission_keys AS $permission_key) {
+            $options[$permission_key->name] = $permission_key->description;
+        }
+
+        return $options;
     }
 }

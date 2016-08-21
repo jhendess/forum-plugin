@@ -1,5 +1,6 @@
 <?php namespace RainLab\Forum\Components;
 
+use Auth;
 use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use RainLab\Forum\Models\Channel;
@@ -91,7 +92,9 @@ class Channels extends ComponentBase
             return $this->channels;
         }
 
-        $channels = Channel::with('first_topic')->isVisible()->get();
+        $channels = Channel::with('first_topic')
+            ->isAccessible()
+            ->get();
 
         /*
          * Add a "url" helper attribute for linking to each channel

@@ -148,6 +148,13 @@ class Topic extends Model
     }
 
     /**
+     * Check if the user may access this topic.
+     */
+    public function isAccessible() {
+        return $this->belongsTo("RainLab\\Forum\\Models\\Channel", "channel_id")->isAccessible()->count() > 0;
+    }
+
+    /**
      * Auto creates a topic based on embed code and channel
      * @param  string $code        Embed code
      * @param  string $channel     Channel to create the topic in
