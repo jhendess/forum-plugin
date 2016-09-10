@@ -41,6 +41,11 @@ class Topic extends ComponentBase
     protected $member = null;
 
     /**
+     * @var bool Indicator if the topic is accessible with the current rights
+     */
+    protected $accessible = true;
+
+    /**
      * @var string Reference to the page name for linking to members.
      */
     public $memberPage;
@@ -137,7 +142,7 @@ class Topic extends ComponentBase
 
         $topic = TopicModel::whereSlug($slug)->first();
         
-    if ($topic && $topic->isAccessible()) {
+        if ($topic && $topic->isAccessible()) {
             $topic->increaseViewCount();
         } else {
             return null;
@@ -165,7 +170,7 @@ class Topic extends ComponentBase
             $channel = $topic->channel;
         }
         elseif ($channelId = input('channel')) {
-            $channel = ChannelModel::find($channelId)->isAccessible();
+            $channel = ChannelModel::find($channelId);
         }
         else {
             $channel = null;
