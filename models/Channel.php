@@ -155,7 +155,7 @@ class Channel extends Model
      */
     public function scopeIsAccessible($query) {
         $user = Auth::getUser();
-        $permission_keys = \KurtJensen\Passage\Plugin::globalPassageKeys();
+        $permission_keys = \KurtJensen\Passage\Plugin::passageKeys();
 
         return $query->isVisible()
             ->isLoginRequired($user !== null)
